@@ -1,20 +1,22 @@
 QueueExample (How to TDD a Queueing controller)
 ===============================================
 
-## DocumentConversionController
+# DocumentConversionController
+
+## Public
 
 ### Constructor
 Initializes:
-- TransactionInfoRepository
-- FailureTracking(Dictionary)
-- ActiveQueues(List)
-- JobsProcessing(List)
-- IsStopping = false
+* TransactionInfoRepository
+* FailureTracking(Dictionary)
+* ActiveQueues(List)
+* JobsProcessing(List)
+* IsStopping = false
 
 Sets up Queues:
-- HostName
-- Username
-- Password
+* HostName
+* Username
+* Password
 
 Start ApiHost
 
@@ -30,6 +32,8 @@ Stop ApiHost
 Calls StopProcessing
 Exits if no more jobs are processing
 
+## Private
+
 ### ProcessQueue
 Create new RabbitMq Consumer(QueueHOstName, User, Password, Type)
 Connect to RabbitMq using Consumer
@@ -41,4 +45,18 @@ Add to ActiveQueue list
 Start timer
 Deserialize message in job parameters
 Add to JobsProcessing
+Run document conversion engine
+Check for errors
+Remove job
+Send message to bill processing Queue
+*Inline returns, failing through throws an error* (write confident code)
 
+### RaiseException
+
+### SendMessageToBillProcessingQueue
+ 
+### RunEngineProcess
+
+### RemoveJob (overloaded)
+
+### Exit
